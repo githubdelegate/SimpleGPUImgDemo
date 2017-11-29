@@ -27,15 +27,11 @@ static const GLfloat noRotationTextureCoordinates[] = {
     GLuint fboId,rboId,attrPositionIndex,attrInputTextureIndex,uniformTextureIndex;
     EAGLContext *ctx;
     CGFloat imgVertex[8];
-
 }
-
-
 #pragma mark - gl
 + (Class)layerClass {
     return [CAEAGLLayer class];
 }
-
 
 - (instancetype)initWithFrame:(CGRect)frame {
     if(self = [super initWithFrame:frame]){
@@ -46,6 +42,11 @@ static const GLfloat noRotationTextureCoordinates[] = {
 
 - (void)layoutSubviews {
     [super layoutSubviews];
+
+    [EAGLContext setCurrentContext:ctx];
+    [self destoryFrameBuffer];
+    [self genDisplayFrameBuffer];
+    [self caculategeometry];
 }
 
 - (void)commonInit {
@@ -140,6 +141,16 @@ static const GLfloat noRotationTextureCoordinates[] = {
     [ctx presentRenderbuffer:GL_RENDERBUFFER];
 }
 
+- (void)destoryFrameBuffer{
+    if(fboId){
+        glDeleteFramebuffers(1, fboId);
+        fboId = 0;
+    }
+
+    if(rboId){
+        glDeleteRenderbuffers(1, rboId);
+    }
+}
 #pragma mark - Delegate
 - (void)newFrame:(ZYFrameBuffer *)frame imgSize:(CGSize)size{
     self.imgSize = size;
