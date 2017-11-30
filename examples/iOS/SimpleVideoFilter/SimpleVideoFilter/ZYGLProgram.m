@@ -74,7 +74,6 @@
     glUseProgram(programId);
 }
 
-
 - (GLuint)attributeIndex:(NSString *)name {
     return (GLuint)[attributesAry indexOfObject:name];
 }
