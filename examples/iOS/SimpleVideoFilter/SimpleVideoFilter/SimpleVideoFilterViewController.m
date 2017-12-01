@@ -28,8 +28,8 @@
 {
     [super viewDidLoad];
 
-    [self setupGPUImage];
-//    [self setupZYGPUImg];
+//    [self setupGPUImage];
+    [self setupZYGPUImg];
 }
 
 - (void)setupZYGPUImg{

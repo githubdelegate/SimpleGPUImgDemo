@@ -57,11 +57,7 @@ static const GLfloat noRotationTextureCoordinates[] = {
 }
 
 - (void)contextInit{
-//    EAGLContext *context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
-//    ctx = context;
-//    [EAGLContext setCurrentContext:ctx];
     [[ZYGPUImgCtx shareCtx] userCurrentCtx];
-
 
     CAEAGLLayer *layer = self.layer;
     layer.opaque = YES;
