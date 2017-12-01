@@ -6,6 +6,6 @@ attribute vec4 inputTextureCoord;
 varying vec2 textureCoord;
 
 void main(){
-    gl_position = position;
-    textureCoord = inputTextureCoord.xy;
+    gl_Position = zyposition;
+    textureCoord = zyinputTextureCoord.xy;
 }

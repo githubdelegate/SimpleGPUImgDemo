@@ -9,6 +9,7 @@
 #import <OpenGLES/ES2/glext.h>
 #import <AVFoundation/AVFoundation.h>
 #import "ZYGLProgram.h"
+#import "ZYGPUImgCtx.h"
 
 static const GLfloat noRotationTextureCoordinates[] = {
         0.0f, 1.0f,
@@ -56,10 +57,13 @@ static const GLfloat noRotationTextureCoordinates[] = {
 }
 
 - (void)contextInit{
+//    EAGLContext *context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
+//    ctx = context;
+//    [EAGLContext setCurrentContext:ctx];
+    [[ZYGPUImgCtx shareCtx] userCurrentCtx];
+
+
     CAEAGLLayer *layer = self.layer;
-    EAGLContext *context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
-    ctx = context;
-    [EAGLContext setCurrentContext:ctx];
     layer.opaque = YES;
     layer.drawableProperties = [NSDictionary dictionaryWithObjectsAndKeys
     :[NSNumber numberWithBool:NO], kEAGLDrawablePropertyRetainedBacking,
@@ -81,8 +85,7 @@ static const GLfloat noRotationTextureCoordinates[] = {
     glGetRenderbufferParameteriv(GL_RENDERBUFFER, GL_RENDERBUFFER_WIDTH, &backW);
     glGetRenderbufferParameteriv(GL_RENDERBUFFER_WIDTH, GL_RENDERBUFFER_HEIGHT, &backH);
 
-    self.sizeInPixel.width = backW;
-    self.sizeInPixel.height = backH;
+    self.sizeInPixel = CGSizeMake(backW, backH);
 
     glBindFramebuffer(GL_FRAMEBUFFER, displayFbo);
     glViewport(0, 0, backW, backW);

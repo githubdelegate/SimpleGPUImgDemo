@@ -58,6 +58,8 @@ GLfloat kColorConversion601FullRangeDefault[] = {
 #pragma mark - private
 
 - (void)setupProgram{
+    [[ZYGPUImgCtx shareCtx] userCurrentCtx];
+
     yuv2rgbProgram = [[ZYGLProgram alloc]
             initWithVertexShaderFile:[[NSBundle mainBundle] pathForResource:@"vertexShader.glsl" ofType:nil]
                       fragShaderFile:[[NSBundle mainBundle] pathForResource:@"fragShader.glsl" ofType:nil]];
@@ -67,6 +69,7 @@ GLfloat kColorConversion601FullRangeDefault[] = {
     [yuv2rgbProgram addAttribute:@"inputTextureCoord"];
 
     [yuv2rgbProgram link];
+
     if(NO == [yuv2rgbProgram validate]){
         NSLog(@"prgram validate failed.......%@\n-%@\n-%@\n",
                 yuv2rgbProgram.programLog,yuv2rgbProgram.vertexShaderLog,yuv2rgbProgram.fragShaderLog);

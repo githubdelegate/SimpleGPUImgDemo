@@ -44,14 +44,12 @@
 }
 
 - (BOOL)link {
-
     glLinkProgram(programId);
     GLint status;
     glGetProgramiv(programId,GL_LINK_STATUS, &status);
     if(status != GL_TRUE){
         return NO;
     }else{
-
     }
 
     return YES;
@@ -61,8 +59,8 @@
     GLint len;
     glGetProgramiv(programId, GL_INFO_LOG_LENGTH, &len);
     if(len > 0){
-        GLchar *info = (GLchar *) malloc(sizeof(GLchar) * len);
-        glGetProgramInfoLog(programId, len, len, &info);
+        GLchar *info = (GLchar *)malloc(sizeof(GLchar) * len);
+        glGetProgramInfoLog(programId, len, &len, info);
         self.programLog = [NSString stringWithUTF8String:info];
         free(info);
         return NO;
@@ -85,7 +83,7 @@
 
     if(![attributesAry containsObject:name]){
         [attributesAry addObject:name];
-        glBindAttribLocation(programId, [attributesAry indexOfObject:name], [name UTF8String]);
+        glBindAttribLocation(programId, (GLuint)[attributesAry indexOfObject:name], [name UTF8String]);
     }
 }
 
@@ -120,7 +118,6 @@
             }
             free(info);
         }
-
         return NO;
     }
     return YES;

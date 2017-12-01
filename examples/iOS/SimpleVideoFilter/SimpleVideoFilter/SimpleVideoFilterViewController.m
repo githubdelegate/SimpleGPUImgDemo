@@ -1,9 +1,11 @@
 #import "SimpleVideoFilterViewController.h"
 #import <AssetsLibrary/ALAssetsLibrary.h>
 #import "ZYGPUImgVideoCamera.h"
+#import "ZYGImgView.h"
 
-@interface SimpleVideoFilterViewController
-
+@interface SimpleVideoFilterViewController()
+@property (nonatomic, strong) ZYGPUImgVideoCamera *zyVideoCamera;
+@property (nonatomic, strong) ZYGImgView *imgView;
 @end
 @implementation SimpleVideoFilterViewController
 
@@ -25,16 +27,20 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-}
 
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
+    [self setupGPUImage];
+//    [self setupZYGPUImg];
 }
 
 - (void)setupZYGPUImg{
-    
+
+    _zyVideoCamera = [[ZYGPUImgVideoCamera alloc] init];
+    _imgView = [[ZYGImgView alloc] initWithFrame:self.view.bounds];
+    [self.view addSubview:_imgView];
+
+    [_zyVideoCamera addTarget:_imgView];
+
+    [_zyVideoCamera startCapture];
 }
 
 - (void)setupGPUImage{
@@ -60,8 +66,11 @@
     //    filter = [[GPUImageSmoothToonFilter alloc] init];
     //    GPUImageRotationFilter *rotationFilter = [[GPUImageRotationFilter alloc] initWithRotation:kGPUImageRotateRightFlipVertical];
     
+    
+    GPUImageView *filterView = [[GPUImageView alloc] initWithFrame:self.view.bounds];
     //    [videoCamera addTarget:filter];
-    GPUImageView *filterView = (GPUImageView *)self.view;
+//    GPUImageView *filterView = (GPUImageView *)self.view;
+    [self.view addSubview:filterView];
     //    filterView.fillMode = kGPUImageFillModeStretch;
     //    filterView.fillMode = kGPUImageFillModePreserveAspectRatioAndFill;
     

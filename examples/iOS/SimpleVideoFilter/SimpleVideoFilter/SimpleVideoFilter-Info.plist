@@ -26,6 +26,12 @@
 	<string>1.0</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>came</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>m</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string> ""</string>
 	<key>UIFileSharingEnabled</key>
 	<true/>
 	<key>UIPrerenderedIcon</key>
